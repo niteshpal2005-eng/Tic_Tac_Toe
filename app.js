@@ -41,16 +41,21 @@ const enable = ()=>{
 
 boxes.forEach((Box)=>{
     Box.addEventListener("click",()=>{
+        
         if(turn0 === true){
             Box.innerText = "X";
+            Box.style.color = "red";
             turn0 = false;
             Box.disabled = true;
+            
         }
 
         else{
             Box.innerText = "O";
+            Box.style.color = "Black";
             turn0 = true;
             Box.disabled = true;
+            
         }
 
         checkwinner();
@@ -67,7 +72,7 @@ const showwinner = (winner)=>{
 
 
 }
-const checkwinner = ()=>{
+const checkwinner = (c)=>{
     for(let pos of win){
         let p1 = boxes[pos[0]].innerText;
         let p2 = boxes[pos[1]].innerText;
@@ -77,14 +82,36 @@ const checkwinner = ()=>{
             if(p1==p2 && p2==p3){
                 console.log(`winner is ${p1}`);
                 showwinner(p1);
+                return;
             }
-
+        
         }
 
+        
+        
+    }
+    count();
 
+};
+
+
+
+const count = ()=>{
+    let f = 0;
+    for(let b of boxes){
+        if (b.innerText!=""){
+        f++;
+        }
 
     }
-};
+
+    if(f==9){
+        msgs.innerText = "Draw";
+        msg.classList.remove("hide");
+        disable();
+
+    }
+}
 
 
 
